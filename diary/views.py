@@ -20,9 +20,9 @@ class EntryCreateView(CreateView):
     form_class = EntryForm
     model = Entry
 
-    def form_valid(self, form):
-        form.instance.user = self.request.user
-        return super().form_valid(form)
+    def get_initial(self):
+        self.initial.update({ 'user': self.request.user })
+        return self.initial
 
 class EntryUpdateView(UpdateView):
     form_class = EntryForm

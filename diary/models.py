@@ -3,7 +3,7 @@ from datetime import date
 from django.contrib.auth.models import User
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.forms import ModelForm, TextInput, HiddenInput
+from django.forms import DateInput, ModelForm, TextInput, HiddenInput, ValidationError
 
 class Repo(models.Model):
     name = models.CharField(max_length=200, unique=True)
@@ -67,11 +67,26 @@ class Entry(models.Model):
         return reverse('entry-detail', kwargs={'pk': self.pk})
 
 class EntryForm(ModelForm):
+    def clean_day(self):
+        user = self.cleaned_data['user']
+        day  = self.cleaned_data['day']
+
+        duplicates = Entry.objects.filter(
+            user=user,
+            day=day
+        )
+
+        if duplicates.exists():
+            raise ValidationError('Eintrag existiert bereits')
+
+        return day
+
     class Meta:
         model = Entry
-        fields = ['day', 'productivity_rating', 'happiness_rating']
+        fields = ['user', 'day', 'productivity_rating', 'happiness_rating']
         widgets = {
-            'day': HiddenInput(attrs={'value': date.today()}),
+            'user': HiddenInput(),
+            'day': DateInput(attrs={'value': date.today(), 'type': 'date'}),
             'productivity_rating': TextInput(attrs={'type': 'range', 'step': 1, 'min': 1, 'max': 10}),
             'happiness_rating': TextInput(attrs={'type': 'range', 'step': 1, 'min': 1, 'max': 10})
         }
