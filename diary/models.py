@@ -55,6 +55,11 @@ class Entry(models.Model):
     )
     incidents = models.ManyToManyField(Incident)
 
+    class Meta:
+        constraints = [
+           models.UniqueConstraint(fields=['user', 'day'], name='unique_entry_day')
+        ]
+
     def __str__(self):
         return "%s" % self.day
 
