@@ -2,9 +2,24 @@
 <html lang="de">
     <head>
         <title>Dashboard</title>
-        {% include "diary/bootstrap.html" %}
+        {% load bootstrap4 %}
+
+        {% bootstrap_css %}
     </head>
     <body>
+        <div class="container">
+            <h1>Workdiary: Dashboard</h1>
+            <span>eingeloggt als {{ request.user }}</span>
 
+            <div>
+                <h2>Entries</h2>
+                <a href="{% url 'entry-add' %}">New entry</a>
+                {% for entry in entries %}
+                    <div>
+                        <a href="{% url 'entry-detail' entry.id %}">{{ entry.day }} {{ entry.productivity_rating }} {{ entry.happiness_rating }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
     </body>
 </html>

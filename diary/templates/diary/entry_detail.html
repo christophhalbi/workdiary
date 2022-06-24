@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <title>Entry detail</title>
+        {% load bootstrap4 %}
+
+        {% bootstrap_css %}
+    </head>
+    <body>
+        <div class="container">
+            <h1>Workdiary: Entry detail</h1>
+
+            <a href="{% url 'entry-update' object.id %}">Edit</a>
+            <a href="{% url 'entry-delete' object.id %}">Delete</a>
+            <a href="{% url 'index' %}">Dashboard</a>
+
+            <p>Productivity rating: {{ object.productivity_rating }}</p>
+            <p>Happiness rating: {{ object.happiness_rating }}</p>
+        </div>
+    </body>
+</html>
