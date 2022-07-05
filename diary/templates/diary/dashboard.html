@@ -12,11 +12,21 @@
             <span>eingeloggt als {{ request.user }}</span>
 
             <div>
-                <h2>Entries</h2>
+                <h2>My entries</h2>
                 <a href="{% url 'entry-add' %}">New entry</a>
                 {% for entry in entries %}
                     <div>
                         <a href="{% url 'entry-detail' entry.id %}">{{ entry.day }} {{ entry.productivity_rating }} {{ entry.happiness_rating }}</a>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <div>
+                <h2>My incidents</h2>
+                <a href="{% url 'incident-add' %}">New incident</a>
+                {% for incident in incidents %}
+                    <div>
+                        <a href="{% url 'incident-detail' incident.id %}">{{ incident.created_at }} {{ incident.name }} {{ incident.meltdown_rating }}</a>
                     </div>
                 {% endfor %}
             </div>

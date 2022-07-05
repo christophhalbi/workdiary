@@ -25,8 +25,14 @@ class IncidentTag(models.Model):
 
 class Incident(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField()
-    meltdown_rating = models.SmallIntegerField()
+    created_at = models.DateField()
+    meltdown_rating = models.SmallIntegerField(
+        default=5,
+        validators=[
+            MaxValueValidator(10),
+            MinValueValidator(1)
+        ]
+    )
     name = models.CharField(max_length=200, unique=True)
     description = models.TextField()
     repos = models.ManyToManyField(Repo)
@@ -35,6 +41,9 @@ class Incident(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('incident-detail', kwargs={'pk': self.pk})
 
 class Entry(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -77,7 +86,7 @@ class EntryForm(ModelForm):
         )
 
         if duplicates.exists():
-            raise ValidationError('Eintrag existiert bereits')
+            raise ValidationError('Entry already exists')
 
         return day
 
@@ -89,4 +98,14 @@ class EntryForm(ModelForm):
             'day': DateInput(attrs={'value': date.today(), 'type': 'date'}),
             'productivity_rating': TextInput(attrs={'type': 'range', 'step': 1, 'min': 1, 'max': 10}),
             'happiness_rating': TextInput(attrs={'type': 'range', 'step': 1, 'min': 1, 'max': 10})
+        }
+
+class IncidentForm(ModelForm):
+    class Meta:
+        model = Incident
+        fields = ['created_by', 'created_at', 'name', 'description', 'meltdown_rating', 'repos', 'techstack', 'tags']
+        widgets = {
+            'created_by': HiddenInput(),
+            'created_at': DateInput(attrs={'value': date.today(), 'type': 'date'}),
+            'meltdown_rating': TextInput(attrs={'type': 'range', 'step': 1, 'min': 1, 'max': 10}),
         }

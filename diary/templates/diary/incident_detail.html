@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <title>Incident detail</title>
+        {% load bootstrap4 %}
+
+        {% bootstrap_css %}
+    </head>
+    <body>
+        <div class="container">
+            <h1>Workdiary: Incident detail</h1>
+
+            <a href="{% url 'incident-update' object.id %}">Edit</a>
+            <a href="{% url 'incident-delete' object.id %}">Delete</a>
+            <a href="{% url 'index' %}">Dashboard</a>
+
+            <p>Name: {{ object.name }}</p>
+            <p>Description: {{ object.description }}</p>
+
+            <p>Meltdown rating: {{ object.meltdown_rating }}</p>
+        </div>
+    </body>
+</html>
