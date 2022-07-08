@@ -35,7 +35,7 @@ class EntryUpdateView(UpdateView):
 
 class EntryDeleteView(DeleteView):
     model = Entry
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('dashboard')
 
 # Incident
 class IncidentDetailView(DetailView):
@@ -55,4 +55,4 @@ class IncidentUpdateView(UpdateView):
 
 class IncidentDeleteView(DeleteView):
     model = Incident
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('dashboard')

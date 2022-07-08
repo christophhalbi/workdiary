@@ -2,7 +2,7 @@ from django.urls import path
 from diary.views import DashboardView, EntryCreateView, EntryUpdateView, EntryDeleteView, EntryDetailView, IncidentCreateView, IncidentDeleteView, IncidentDetailView, IncidentUpdateView
 
 urlpatterns = [
-    path('', DashboardView.as_view(), name='index'),
+    path('', DashboardView.as_view(), name='dashboard'),
     # Entry
     path('entry-detail/<int:pk>/', EntryDetailView.as_view(), name='entry-detail'),
     path('entry/add/', EntryCreateView.as_view(), name='entry-add'),

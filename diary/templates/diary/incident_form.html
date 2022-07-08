@@ -1,25 +1,19 @@
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        <title>Incident</title>
+{% extends "diary/base.html" %}
+
+{% block title %}Incident{% endblock %}
+
+{% block content %}
+    <h1>Incident</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
         {% load bootstrap4 %}
 
-        {% bootstrap_css %}
-    </head>
-    <body>
-        <div class="container">
-            <h1>Workdiary: Incident</h1>
+        {% bootstrap_form form %}
 
-            <form method="post">
-                {% csrf_token %}
-
-                {% bootstrap_form form %}
-
-                {% buttons %}
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                {% endbuttons %}
-            </form>
-
-        </div>
-    </body>
-</html>
+        {% buttons %}
+            <button type="submit" class="btn btn-primary">Submit</button>
+        {% endbuttons %}
+    </form>
+{% endblock %}

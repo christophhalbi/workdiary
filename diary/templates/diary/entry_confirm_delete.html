@@ -1,23 +1,17 @@
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        <title>Delete entry</title>
+{% extends "diary/base.html" %}
+
+{% block title %}Delete entry{% endblock %}
+
+{% block content %}
+    <h1>Delete entry</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
         {% load bootstrap4 %}
 
-        {% bootstrap_css %}
-    </head>
-    <body>
-        <div class="container">
-            <h1>Workdiary: Delete entry</h1>
-
-            <form method="post">
-                {% csrf_token %}
-
-                {% buttons %}
-                    <button type="submit" class="btn btn-primary" value="Confirm">Confirm</button>
-                {% endbuttons %}
-            </form>
-
-        </div>
-    </body>
-</html>
+        {% buttons %}
+            <button type="submit" class="btn btn-primary" value="Confirm">Confirm</button>
+        {% endbuttons %}
+    </form>
+{% endblock %}

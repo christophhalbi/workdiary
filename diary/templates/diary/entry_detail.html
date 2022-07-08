@@ -1,21 +1,14 @@
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        <title>Entry detail</title>
-        {% load bootstrap4 %}
+{% extends "diary/base.html" %}
 
-        {% bootstrap_css %}
-    </head>
-    <body>
-        <div class="container">
-            <h1>Workdiary: Entry detail</h1>
+{% block title %}Entry detail{% endblock %}
 
-            <a href="{% url 'entry-update' object.id %}">Edit</a>
-            <a href="{% url 'entry-delete' object.id %}">Delete</a>
-            <a href="{% url 'index' %}">Dashboard</a>
+{% block content %}
+    <h1>Entry detail</h1>
 
-            <p>Productivity rating: {{ object.productivity_rating }}</p>
-            <p>Happiness rating: {{ object.happiness_rating }}</p>
-        </div>
-    </body>
-</html>
+    <a href="{% url 'entry-update' object.id %}">Edit</a>
+    <a href="{% url 'entry-delete' object.id %}">Delete</a>
+
+    <p>Day: {{ object.day }}</p>
+    <p>Productivity rating: {{ object.productivity_rating }}</p>
+    <p>Happiness rating: {{ object.happiness_rating }}</p>
+{% endblock %}

@@ -1,35 +1,27 @@
-<!DOCTYPE html>
-<html lang="de">
-    <head>
-        <title>Dashboard</title>
-        {% load bootstrap4 %}
+{% extends "diary/base.html" %}
 
-        {% bootstrap_css %}
-    </head>
-    <body>
-        <div class="container">
-            <h1>Workdiary: Dashboard</h1>
-            <span>eingeloggt als {{ request.user }}</span>
+{% block title %}Dashboard{% endblock %}
 
+{% block content %}
+    <h1>Dashboard</h1>
+
+    <div>
+        <h2>My entries</h2>
+        <a href="{% url 'entry-add' %}">New entry</a>
+        {% for entry in entries %}
             <div>
-                <h2>My entries</h2>
-                <a href="{% url 'entry-add' %}">New entry</a>
-                {% for entry in entries %}
-                    <div>
-                        <a href="{% url 'entry-detail' entry.id %}">{{ entry.day }} {{ entry.productivity_rating }} {{ entry.happiness_rating }}</a>
-                    </div>
-                {% endfor %}
+                <a href="{% url 'entry-detail' entry.id %}">{{ entry.day }}</a>
             </div>
+        {% endfor %}
+    </div>
 
+    <div>
+        <h2>My incidents</h2>
+        <a href="{% url 'incident-add' %}">New incident</a>
+        {% for incident in incidents %}
             <div>
-                <h2>My incidents</h2>
-                <a href="{% url 'incident-add' %}">New incident</a>
-                {% for incident in incidents %}
-                    <div>
-                        <a href="{% url 'incident-detail' incident.id %}">{{ incident.created_at }} {{ incident.name }} {{ incident.meltdown_rating }}</a>
-                    </div>
-                {% endfor %}
+                <a href="{% url 'incident-detail' incident.id %}">{{ incident.created_at }} {{ incident.name }}</a>
             </div>
-        </div>
-    </body>
-</html>
+        {% endfor %}
+    </div>
+{% endblock %}
