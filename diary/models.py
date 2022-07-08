@@ -48,6 +48,7 @@ class Incident(models.Model):
 class Entry(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     day = models.DateField()
+    description = models.TextField(null=True, blank=True)
     productivity_rating = models.SmallIntegerField(
         default=10,
         validators=[
@@ -92,7 +93,7 @@ class EntryForm(ModelForm):
 
     class Meta:
         model = Entry
-        fields = ['user', 'day', 'productivity_rating', 'happiness_rating']
+        fields = ['user', 'day', 'description', 'productivity_rating', 'happiness_rating']
         widgets = {
             'user': HiddenInput(),
             'day': DateInput(attrs={'value': date.today(), 'type': 'date'}),

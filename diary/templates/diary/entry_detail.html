@@ -8,6 +8,11 @@
     {% include "diary/messages.html" %}
 
     <p>Day: {{ object.day }}</p>
+
+    {% if object.description %}
+        <p>Description: {{ object.description }}</p>
+    {% endif %}
+
     <p>Productivity rating: {{ object.productivity_rating }}</p>
     <p>Happiness rating: {{ object.happiness_rating }}</p>
 
