@@ -5,10 +5,12 @@
 {% block content %}
     <h1>Entry detail</h1>
 
-    <a href="{% url 'entry-update' object.id %}">Edit</a>
-    <a href="{% url 'entry-delete' object.id %}">Delete</a>
+    {% include "diary/messages.html" %}
 
     <p>Day: {{ object.day }}</p>
     <p>Productivity rating: {{ object.productivity_rating }}</p>
     <p>Happiness rating: {{ object.happiness_rating }}</p>
+
+    <a href="{% url 'entry-update' object.id %}">Edit</a>
+    <a href="{% url 'entry-delete' object.id %}">Delete</a>
 {% endblock %}

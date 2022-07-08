@@ -3,6 +3,7 @@ from django.urls import reverse_lazy
 from django.views import View
 from .models import Entry, EntryForm, Incident, IncidentForm
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -22,21 +23,24 @@ class DashboardView(LoginRequiredMixin, View):
 class EntryDetailView(DetailView):
     model = Entry
 
-class EntryCreateView(CreateView):
+class EntryCreateView(SuccessMessageMixin, CreateView):
     form_class = EntryForm
     model = Entry
+    success_message = "Entry created!"
 
     def get_initial(self):
         self.initial.update({ 'user': self.request.user })
         return self.initial
 
-class EntryUpdateView(UpdateView):
+class EntryUpdateView(SuccessMessageMixin, UpdateView):
     form_class = EntryForm
     model = Entry
+    success_message = "Entry updated!"
 
-class EntryDeleteView(DeleteView):
+class EntryDeleteView(SuccessMessageMixin, DeleteView):
     model = Entry
     success_url = reverse_lazy('dashboard')
+    success_message = "Entry deleted!"
 
 class EntryListview(ListView):
     model = Entry
@@ -45,21 +49,24 @@ class EntryListview(ListView):
 class IncidentDetailView(DetailView):
     model = Incident
 
-class IncidentCreateView(CreateView):
+class IncidentCreateView(SuccessMessageMixin, CreateView):
     form_class = IncidentForm
     model = Incident
+    success_message = "Incident created!"
 
     def get_initial(self):
         self.initial.update({ 'created_by': self.request.user })
         return self.initial
 
-class IncidentUpdateView(UpdateView):
+class IncidentUpdateView(SuccessMessageMixin, UpdateView):
     form_class = IncidentForm
     model = Incident
+    success_message = "Incident updated!"
 
-class IncidentDeleteView(DeleteView):
+class IncidentDeleteView(SuccessMessageMixin, DeleteView):
     model = Incident
     success_url = reverse_lazy('dashboard')
+    success_message = "Incident deleted!"
 
 class IncidentListView(ListView):
     model = Incident

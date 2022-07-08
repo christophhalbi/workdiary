@@ -5,11 +5,13 @@
 {% block content %}
     <h1>Incident detail</h1>
 
-    <a href="{% url 'incident-update' object.id %}">Edit</a>
-    <a href="{% url 'incident-delete' object.id %}">Delete</a>
+    {% include "diary/messages.html" %}
 
     <p>Name: {{ object.name }}</p>
     <p>Description: {{ object.description }}</p>
 
     <p>Meltdown rating: {{ object.meltdown_rating }}</p>
+
+    <a href="{% url 'incident-update' object.id %}">Edit</a>
+    <a href="{% url 'incident-delete' object.id %}">Delete</a>
 {% endblock %}

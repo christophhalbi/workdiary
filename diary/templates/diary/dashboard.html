@@ -5,6 +5,8 @@
 {% block content %}
     <h1>Dashboard</h1>
 
+    {% include "diary/messages.html" %}
+
     <div>
         <h2>My entries</h2>
         <a href="{% url 'entry-add' %}">New entry</a>
