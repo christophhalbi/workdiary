@@ -5,6 +5,7 @@ from .models import Entry, EntryForm, Incident, IncidentForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
 
 class DashboardView(LoginRequiredMixin, View):
 
@@ -37,6 +38,9 @@ class EntryDeleteView(DeleteView):
     model = Entry
     success_url = reverse_lazy('dashboard')
 
+class EntryListview(ListView):
+    model = Entry
+
 # Incident
 class IncidentDetailView(DetailView):
     model = Incident
@@ -56,3 +60,6 @@ class IncidentUpdateView(UpdateView):
 class IncidentDeleteView(DeleteView):
     model = Incident
     success_url = reverse_lazy('dashboard')
+
+class IncidentListView(ListView):
+    model = Incident
