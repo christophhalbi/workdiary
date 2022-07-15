@@ -2,6 +2,15 @@
 
 {% block title %}Dashboard{% endblock %}
 
+{% block js %}
+
+    {% load static %}
+
+    <script src="{% static 'diary/js/external/frappe-charts.min.iife.js' %}"></script>
+    <script src="{% static 'diary/js/chart.js' %}"></script>
+    <script src="{% static 'diary/js/app.js' %}"></script>
+{% endblock %}
+
 {% block content %}
     <h1>Dashboard</h1>
 
@@ -25,5 +34,10 @@
                 <a href="{% url 'incident-detail' incident.id %}">{{ incident.created_at }} {{ incident.name }}</a>
             </div>
         {% endfor %}
+    </div>
+
+    <div id="chart">
+        <h2>Chart</h2>
+        <div id="chart-container"/>
     </div>
 {% endblock %}

@@ -1,5 +1,5 @@
 from django.urls import path
-from diary.views import DashboardView, EntryCreateView, EntryListview, EntryUpdateView, EntryDeleteView, EntryDetailView, IncidentCreateView, IncidentDeleteView, IncidentDetailView, IncidentListView, IncidentUpdateView
+from diary.views import DashboardView, EntryCreateView, EntryListCreateAPIView, EntryListview, EntryUpdateView, EntryDeleteView, EntryDetailView, IncidentCreateView, IncidentDeleteView, IncidentDetailView, IncidentListView, IncidentUpdateView
 
 urlpatterns = [
     path('', DashboardView.as_view(), name='dashboard'),
@@ -15,4 +15,6 @@ urlpatterns = [
     path('incident/<int:pk>/', IncidentUpdateView.as_view(), name='incident-update'),
     path('incident/<int:pk>/delete/', IncidentDeleteView.as_view(), name='incident-delete'),
     path('incidents/', IncidentListView.as_view(), name='incident-list'),
+    # API
+    path('api/entry/', EntryListCreateAPIView.as_view() ),
 ]

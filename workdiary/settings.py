@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'bootstrap4',
+    'rest_framework',
     'diary.apps.DiaryConfig',
     'django.contrib.admin',
     'django.contrib.auth',

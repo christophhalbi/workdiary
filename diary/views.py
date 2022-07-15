@@ -1,12 +1,16 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import View
-from .models import Entry, EntryForm, Incident, IncidentForm
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+
+from rest_framework import generics
+
+from .models import Entry, EntryForm, Incident, IncidentForm
+from .serializers import EntrySerializer
 
 class DashboardView(LoginRequiredMixin, View):
 
@@ -44,6 +48,10 @@ class EntryDeleteView(SuccessMessageMixin, DeleteView):
 
 class EntryListview(ListView):
     model = Entry
+
+class EntryListCreateAPIView(generics.ListCreateAPIView):
+    queryset = Entry.objects.all()
+    serializer_class = EntrySerializer
 
 # Incident
 class IncidentDetailView(DetailView):
