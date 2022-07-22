@@ -50,8 +50,10 @@ class EntryListview(ListView):
     model = Entry
 
 class EntryListCreateAPIView(generics.ListCreateAPIView):
-    queryset = Entry.objects.all()
     serializer_class = EntrySerializer
+
+    def get_queryset(self):
+        return Entry.objects.order_by('day')
 
 # Incident
 class IncidentDetailView(DetailView):
