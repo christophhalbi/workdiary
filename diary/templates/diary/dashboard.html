@@ -7,7 +7,10 @@
     {% load static %}
 
     <script src="{% static 'diary/js/external/frappe-charts.min.iife.js' %}"></script>
-    <script src="{% static 'diary/js/chart.js' %}"></script>
+    <script type="module">
+        import { ChartLoader } from "./../static/diary/js/chart_loader.js";
+        window.ChartLoader = ChartLoader;
+    </script>
     <script src="{% static 'diary/js/app.js' %}"></script>
 {% endblock %}
 
@@ -16,28 +19,34 @@
 
     {% include "diary/messages.html" %}
 
-    <div>
-        <h2>My entries</h2>
-        <a href="{% url 'entry-add' %}">New entry</a>
-        {% for entry in entries %}
-            <div>
-                <a href="{% url 'entry-detail' entry.id %}">{{ entry.day }}</a>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h2>My entries</h2>
+                <a href="{% url 'entry-add' %}">New entry</a>
+                {% for entry in entries %}
+                    <div>
+                        <a href="{% url 'entry-detail' entry.id %}">{{ entry.day }}</a>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
 
-    <div>
-        <h2>My incidents</h2>
-        <a href="{% url 'incident-add' %}">New incident</a>
-        {% for incident in incidents %}
-            <div>
-                <a href="{% url 'incident-detail' incident.id %}">{{ incident.created_at }} {{ incident.name }}</a>
+            <div class="col">
+                <h2>My incidents</h2>
+                <a href="{% url 'incident-add' %}">New incident</a>
+                {% for incident in incidents %}
+                    <div>
+                        <a href="{% url 'incident-detail' incident.id %}">{{ incident.created_at }} {{ incident.name }}</a>
+                    </div>
+                {% endfor %}
             </div>
-        {% endfor %}
-    </div>
+        </div>
 
-    <div id="chart">
-        <h2>Chart</h2>
-        <div id="chart-container"/>
+        <div class="row mt-4">
+            <div class="col" id="chart">
+                <h2>Chart</h2>
+                <div id="chart-container"></div>
+            </div>
+        </div>
     </div>
 {% endblock %}

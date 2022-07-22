@@ -15,8 +15,8 @@ from .serializers import EntrySerializer
 class DashboardView(LoginRequiredMixin, View):
 
     def get(self, request):
-        entries = Entry.objects.filter(user=request.user)
-        incidents = Incident.objects.filter(created_by=request.user)
+        entries = Entry.objects.filter(user=request.user).order_by('day')
+        incidents = Incident.objects.filter(created_by=request.user).order_by('-created_at')
 
         return render(request, 'diary/dashboard.html', {
             'entries': entries,
