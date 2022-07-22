@@ -16,13 +16,17 @@
     <p>Productivity rating: {{ object.productivity_rating }}</p>
     <p>Happiness rating: {{ object.happiness_rating }}</p>
 
-    <p>Linked incidents:</p>
-    {% for incident in object.incidents.all %}
-        <p>
-            <a href="{% url 'incident-detail' incident.id %}">{{ incident.name }}</a>
-            <a href="{% url 'entry-unlink-incident' entry.id incident.id %}">Unlink</a>
-        </p>
-    {% endfor %}
+    {% if object.incidents %}
+        <p>Linked incidents:</p>
+        <ul>
+        {% for incident in object.incidents.all %}
+            <li>
+                <a href="{% url 'incident-detail' incident.id %}">{{ incident.name }}</a>
+                <a href="{% url 'entry-unlink-incident' entry.id incident.id %}">Unlink</a>
+            </li>
+        {% endfor %}
+        </ul>
+        {% endif %}
 
     <a href="{% url 'entry-update' object.id %}">Edit</a>
     <a href="{% url 'entry-delete' object.id %}">Delete</a>

@@ -63,7 +63,7 @@ class Entry(models.Model):
             MinValueValidator(1)
         ]
     )
-    incidents = models.ManyToManyField(Incident)
+    incidents = models.ManyToManyField(Incident, blank=True)
 
     class Meta:
         constraints = [
