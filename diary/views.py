@@ -49,6 +49,9 @@ class EntryDeleteView(SuccessMessageMixin, DeleteView):
 class EntryListview(ListView):
     model = Entry
 
+    def get_queryset(self):
+        return Entry.objects.order_by('day')
+
 class EntryListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = EntrySerializer
 
@@ -80,3 +83,6 @@ class IncidentDeleteView(SuccessMessageMixin, DeleteView):
 
 class IncidentListView(ListView):
     model = Incident
+
+    def get_queryset(self):
+        return Incident.objects.order_by('-created_at')
