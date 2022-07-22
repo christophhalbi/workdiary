@@ -16,6 +16,14 @@
     <p>Productivity rating: {{ object.productivity_rating }}</p>
     <p>Happiness rating: {{ object.happiness_rating }}</p>
 
+    <p>Linked incidents:</p>
+    {% for incident in object.incidents.all %}
+        <p>
+            <a href="{% url 'incident-detail' incident.id %}">{{ incident.name }}</a>
+            <a href="{% url 'entry-unlink-incident' entry.id incident.id %}">Unlink</a>
+        </p>
+    {% endfor %}
+
     <a href="{% url 'entry-update' object.id %}">Edit</a>
     <a href="{% url 'entry-delete' object.id %}">Delete</a>
 {% endblock %}

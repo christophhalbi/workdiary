@@ -93,7 +93,7 @@ class EntryForm(ModelForm):
 
     class Meta:
         model = Entry
-        fields = ['user', 'day', 'description', 'productivity_rating', 'happiness_rating']
+        fields = ['user', 'day', 'description', 'productivity_rating', 'happiness_rating', 'incidents']
         widgets = {
             'user': HiddenInput(),
             'day': DateInput(attrs={'value': date.today(), 'type': 'date'}),

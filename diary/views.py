@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.urls import reverse_lazy
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 from django.views.generic.detail import DetailView
@@ -45,6 +46,20 @@ class EntryDeleteView(SuccessMessageMixin, DeleteView):
     model = Entry
     success_url = reverse_lazy('dashboard')
     success_message = "Entry deleted!"
+
+class EntryUnlinkIncidentView(View):
+    def get(self, request, *args, **kwargs):
+
+        entry_id = kwargs['entry']
+        entry = Entry.objects.get(pk=entry_id)
+        incident_id = kwargs['incident']
+        incident = Incident.objects.get(pk=incident_id)
+
+        entry.incidents.remove(incident)
+
+        messages.success(self.request, 'Unlinked')
+
+        return redirect('entry-detail', entry_id)
 
 class EntryListview(ListView):
     model = Entry
