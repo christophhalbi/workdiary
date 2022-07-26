@@ -22,7 +22,7 @@ export class ChartLoader {
                         },
                         {
                             name: "incidents",
-                            chartType: "bar",
+                            chartType: "line",
                             values: data.map(item => item['incidents'].length)
                         }
                     ]

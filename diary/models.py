@@ -27,9 +27,9 @@ class Incident(models.Model):
     created_by = models.ForeignKey(User, on_delete=models.CASCADE)
     created_at = models.DateField()
     meltdown_rating = models.SmallIntegerField(
-        default=5,
+        default=4,
         validators=[
-            MaxValueValidator(10),
+            MaxValueValidator(5),
             MinValueValidator(1)
         ]
     )
@@ -50,16 +50,16 @@ class Entry(models.Model):
     day = models.DateField()
     description = models.TextField(null=True, blank=True)
     productivity_rating = models.SmallIntegerField(
-        default=10,
+        default=4,
         validators=[
-            MaxValueValidator(10),
+            MaxValueValidator(5),
             MinValueValidator(1)
         ]
     )
     happiness_rating = models.SmallIntegerField(
-        default=10,
+        default=4,
         validators=[
-            MaxValueValidator(10),
+            MaxValueValidator(5),
             MinValueValidator(1)
         ]
     )
@@ -97,8 +97,8 @@ class EntryForm(ModelForm):
         widgets = {
             'user': HiddenInput(),
             'day': DateInput(attrs={'value': date.today(), 'type': 'date'}),
-            'productivity_rating': TextInput(attrs={'type': 'range', 'step': 1, 'min': 1, 'max': 10}),
-            'happiness_rating': TextInput(attrs={'type': 'range', 'step': 1, 'min': 1, 'max': 10})
+            'productivity_rating': TextInput(attrs={'type': 'range', 'step': 1, 'min': 1, 'max': 5}),
+            'happiness_rating': TextInput(attrs={'type': 'range', 'step': 1, 'min': 1, 'max': 5})
         }
 
 class IncidentForm(ModelForm):
@@ -108,5 +108,5 @@ class IncidentForm(ModelForm):
         widgets = {
             'created_by': HiddenInput(),
             'created_at': DateInput(attrs={'value': date.today(), 'type': 'date'}),
-            'meltdown_rating': TextInput(attrs={'type': 'range', 'step': 1, 'min': 1, 'max': 10}),
+            'meltdown_rating': TextInput(attrs={'type': 'range', 'step': 1, 'min': 1, 'max': 5}),
         }
