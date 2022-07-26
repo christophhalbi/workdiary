@@ -7,17 +7,18 @@
 
     {% include "diary/messages.html" %}
 
-    <p>Day: {{ object.day }}</p>
+    <p><b>Day:</b> {{ object.day }}</p>
 
     {% if object.description %}
-        <p>Description: {{ object.description }}</p>
+        <p><b>Description:</b></p>
+        <pre>{{ object.description }}</pre>
     {% endif %}
 
-    <p>Productivity rating: {{ object.productivity_rating }}</p>
-    <p>Happiness rating: {{ object.happiness_rating }}</p>
+    <p><b>Productivity rating:</b> {{ object.productivity_rating }}</p>
+    <p><b>Happiness rating:</b> {{ object.happiness_rating }}</p>
 
-    {% if object.incidents %}
-        <p>Linked incidents:</p>
+    {% if object.incidents.count %}
+        <p><b>Incidents:</b></p>
         <ul>
         {% for incident in object.incidents.all %}
             <li>
@@ -26,7 +27,7 @@
             </li>
         {% endfor %}
         </ul>
-        {% endif %}
+    {% endif %}
 
     <a href="{% url 'entry-update' object.id %}">Edit</a>
     <a href="{% url 'entry-delete' object.id %}">Delete</a>

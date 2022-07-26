@@ -16,7 +16,7 @@ from .serializers import EntrySerializer
 class DashboardView(LoginRequiredMixin, View):
 
     def get(self, request):
-        entries = Entry.objects.filter(user=request.user).order_by('day')
+        entries = Entry.objects.filter(user=request.user).order_by('-day')
         incidents = Incident.objects.filter(created_by=request.user).order_by('-created_at')
 
         return render(request, 'diary/dashboard.html', {
@@ -65,7 +65,7 @@ class EntryListview(ListView):
     model = Entry
 
     def get_queryset(self):
-        return Entry.objects.order_by('day')
+        return Entry.objects.order_by('-day')
 
 class EntryListCreateAPIView(generics.ListCreateAPIView):
     serializer_class = EntrySerializer

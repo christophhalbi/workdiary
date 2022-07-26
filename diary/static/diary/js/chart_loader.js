@@ -11,21 +11,28 @@ export class ChartLoader {
                     labels: data.map(item => item['day']),
                     datasets: [
                         {
-                            name: "productivity", type: "line",
+                            name: "productivity",
+                            chartType: "line",
                             values: data.map(item => item['productivity_rating'])
                         },
                         {
-                            name: "happiness", type: "line",
+                            name: "happiness",
+                            chartType: "line",
                             values: data.map(item => item['happiness_rating'])
+                        },
+                        {
+                            name: "incidents",
+                            chartType: "bar",
+                            values: data.map(item => item['incidents'].length)
                         }
                     ]
                 };
 
                 let chart = new frappe.Chart('#chart-container', {
                     data: chartData,
-                    type: 'line',
+                    type: 'axis-mixed',
                     height: 300,
-                    title: "Entries",
+                    colors: ['blue', 'green', 'red']
                 });
             });
     }

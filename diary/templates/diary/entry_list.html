@@ -5,25 +5,39 @@
 {% block content %}
     <h1>Entries</h1>
 
+    <a href="{% url 'entry-add' %}">New entry</a>
+
     <table class="table">
         <thead>
           <tr>
             <th scope="col">Day</th>
             <th scope="col">Productivity rating</th>
             <th scope="col">Happiness rating</th>
+            <th scope="col">Incidents</th>
             <th scope="col"></th>
           </tr>
         </thead>
         <tbody>
             {% for entry in object_list %}
                 <tr>
-                    <td>{{ entry.day }}</td>
+                    <td><a href="{% url 'entry-detail' entry.id %}">{{ entry.day }}</a></td>
                     <td>{{ entry.productivity_rating }}</td>
                     <td>{{ entry.happiness_rating }}</td>
+                    <td>
+                        {% if entry.incidents.count %}
+                            <ul>
+                            {% for incident in entry.incidents.all %}
+                                <li>
+                                    <a href="{% url 'incident-detail' incident.id %}">{{ incident.name }}</a>
+                                </li>
+                            {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </td>
                     <td><a href="{% url 'entry-detail' entry.id %}">Details</a></td>
                 </tr>
             {% empty %}
-                <tr><td colspan="3">No entries yet.</td></tr>
+                <tr><td colspan="5">No entries yet.</td></tr>
             {% endfor %}
         </tbody>
     </table>

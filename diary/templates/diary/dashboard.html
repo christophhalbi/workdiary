@@ -36,7 +36,7 @@
                 <a href="{% url 'incident-add' %}">New incident</a>
                 {% for incident in incidents %}
                     <div>
-                        <a href="{% url 'incident-detail' incident.id %}">{{ incident.created_at }} {{ incident.name }}</a>
+                        <a href="{% url 'incident-detail' incident.id %}">{{ incident.created_at }}: {{ incident.name }}</a>
                     </div>
                 {% endfor %}
             </div>

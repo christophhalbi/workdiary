@@ -35,9 +35,9 @@ class Incident(models.Model):
     )
     name = models.CharField(max_length=200, unique=True)
     description = models.TextField()
-    repos = models.ManyToManyField(Repo)
-    techstack = models.ManyToManyField(Techstack)
-    tags = models.ManyToManyField(IncidentTag)
+    repos = models.ManyToManyField(Repo, blank=True)
+    techstack = models.ManyToManyField(Techstack, blank=True)
+    tags = models.ManyToManyField(IncidentTag, blank=True)
 
     def __str__(self):
         return self.name

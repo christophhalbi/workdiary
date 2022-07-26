@@ -7,10 +7,21 @@
 
     {% include "diary/messages.html" %}
 
-    <p>Name: {{ object.name }}</p>
-    <p>Description: {{ object.description }}</p>
+    <p><b>Name:</b> {{ object.name }}</p>
+    <p><b>Description:</b></p>
+    <pre>{{ object.description }}</pre>
 
-    <p>Meltdown rating: {{ object.meltdown_rating }}</p>
+    <p><b>Meltdown rating:</b> {{ object.meltdown_rating }}</p>
+
+    {% if object.repos.count %}
+        <p><b>Repos:</b> {% for repo in object.repos.all %} {{ repo.name }}{% if not forloop.last %},{% endif %} {% endfor %}</p>
+    {% endif %}
+    {% if object.techstack.count %}
+        <p><b>Techstack:</b> {% for techstack in object.techstack.all %} {{ techstack.name }}{% if not forloop.last %},{% endif %} {% endfor %}</p>
+    {% endif %}
+    {% if object.tags.count %}
+        <p><b>Tags:</b> {% for tags in object.tags.all %} {{ tags.name }}{% if not forloop.last %},{% endif %} {% endfor %}</p>
+    {% endif %}
 
     <a href="{% url 'incident-update' object.id %}">Edit</a>
     <a href="{% url 'incident-delete' object.id %}">Delete</a>
